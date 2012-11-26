@@ -10,6 +10,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
+import model.Client;
 
 /**
  *
@@ -21,12 +22,13 @@ public final class WinkelApplication {
     public static final int FRAME_WIDTH = 755;
     public static final int FRAME_HEIGHT = 480;
     public static final String NAME = "WinkelApplicatie";
-    public static final String CURRENCY = "euro";
+    public static final String CURRENCY = "€";
     /** static fonts which are used within the application */
     public static final Font FONT_10_PLAIN = new Font("Verdana", Font.PLAIN, 10);
     public static final Font FONT_10_BOLD = new Font("Verdana", Font.BOLD, 10);
     public static final Font FONT_12_BOLD = new Font("Verdana", Font.BOLD, 12);
     public static final Font FONT_16_BOLD = new Font("Verdana", Font.BOLD, 16);
+    public static Client client;
     /** database manager */
     private Dbmanager dbManager;
     private QueryManager queryManager;
@@ -58,6 +60,7 @@ public final class WinkelApplication {
     public void startup() {
         mainWindow = new JFrame(NAME);
         mainWindow.setSize(FRAME_WIDTH, FRAME_HEIGHT);
+        client = queryManager.getClient(1);
 
         /** Make the window closing [x] button on the frame active */
         mainWindow.addWindowListener(new WindowAdapter() {
@@ -96,6 +99,11 @@ public final class WinkelApplication {
      */
     public static WinkelApplication getInstance() {
         return instance;
+    }
+    
+    public static Client getKlant()
+    {
+        return getInstance().client;
     }
 
     /**

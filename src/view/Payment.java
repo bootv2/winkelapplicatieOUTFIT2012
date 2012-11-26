@@ -108,6 +108,7 @@ public class Payment extends JPanel implements MouseListener, ActionListener {
         add(lblTotal);
 
         // create total labels
+        
         JLabel lblTotalPrice = new JLabel(WinkelApplication.CURRENCY + WinkelApplication.getBasket().getTotalCosts());
         lblTotalPrice.setBounds(480, verticalPosition + products.size() * productOffset, 70, 20);
         lblTotalPrice.setFont(WinkelApplication.FONT_10_BOLD);
@@ -129,6 +130,7 @@ public class Payment extends JPanel implements MouseListener, ActionListener {
         tfNaam = new JTextField();
         tfNaam.setBounds(120, verticalPosition + products.size() *  productOffset + (formOffset * 3), 130, 20);
         tfNaam.setFont(WinkelApplication.FONT_10_BOLD);
+        tfNaam.setText(WinkelApplication.getKlant().getNaam());
         add(tfNaam);
 
         JLabel lblPostcode = new JLabel("Postcode:");
@@ -139,6 +141,7 @@ public class Payment extends JPanel implements MouseListener, ActionListener {
         tfPostcode = new JTextField();
         tfPostcode.setBounds(420, verticalPosition + products.size() *  productOffset + (formOffset * 3), 130, 20);
         tfPostcode.setFont(WinkelApplication.FONT_10_BOLD);
+        tfPostcode.setText(WinkelApplication.getKlant().getPostcode());
         add(tfPostcode);
 
         JLabel lblAddress = new JLabel("Adres:");
@@ -149,6 +152,7 @@ public class Payment extends JPanel implements MouseListener, ActionListener {
         tfAddress = new JTextField();
         tfAddress.setBounds(120, verticalPosition + products.size() *  productOffset + (formOffset * 4), 130, 20);
         tfAddress.setFont(WinkelApplication.FONT_10_BOLD);
+        tfAddress.setText(WinkelApplication.getKlant().getAdres());
         add(tfAddress);
 
         JLabel lblWoonplaats = new JLabel("Woonplaats:");
@@ -159,6 +163,7 @@ public class Payment extends JPanel implements MouseListener, ActionListener {
         tfWoonplaats = new JTextField();
         tfWoonplaats.setBounds(420, verticalPosition + products.size() *  productOffset + (formOffset * 4), 130, 20);
         tfWoonplaats.setFont(WinkelApplication.FONT_10_BOLD);
+        tfWoonplaats.setText(WinkelApplication.getKlant().getWoonplaats());
         add(tfWoonplaats);
 
         JLabel lblPayMethod = new JLabel("Betaalmethode:");

@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 import model.Category;
 import model.Product;
+import model.Client;
 
 public class QueryManager {
 
@@ -56,12 +57,32 @@ public class QueryManager {
                         result.getInt("categorie_id"),
                         result.getString("naam"),
                         result.getString("omschrijving"),
-                        result.getDouble("prijs"));
+                        result.getDouble("prijs"),
+                        result.getDouble("korting"));
             }
         } catch (SQLException e) {
             System.out.println(Dbmanager.SQL_EXCEPTION + e.getMessage());
         }
         return product;
+    }
+    
+    public Client getClient(int klantId)
+    {
+        Client temp = new Client();
+        try {
+            String sql = "SELECT * FROM klant WHERE id='" + klantId + "'";
+            ResultSet result = dbmanager.doQuery(sql);
+            if(result.next())
+            {
+                temp = new Client(result.getInt("id"), result.getString("naam"), result.getString("adres"), result.getString("postcode"), result.getString("woonplaats"));
+                
+            }
+        }
+        catch(SQLException e)
+        {
+            System.out.println(Dbmanager.SQL_EXCEPTION + e.getMessage());
+        }
+        return temp;
     }
 
     public List<Product> getProducts(int categoryId) {
@@ -74,7 +95,8 @@ public class QueryManager {
                         result.getInt("categorie_id"),
                         result.getString("naam"),
                         result.getString("omschrijving"),
-                        result.getDouble("prijs")));
+                        result.getDouble("prijs"),
+                        result.getDouble("korting")));
             }
         } catch (SQLException e) {
             System.out.println(Dbmanager.SQL_EXCEPTION + e.getMessage());

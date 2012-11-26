@@ -7,17 +7,24 @@ public class Product {
     private String name;
     private String description;
     private double price;
+    private double discount;
+    private boolean hasDiscount;
 
     public Product() {
-        this(-1, -1, "", "", 0.0);
+        this(-1, -1, "", "", 0.0, 0.0);
     }
 
-    public Product(int product_id, int categorie_id, String name, String description, double price) {
+    public Product(int product_id, int categorie_id, String name, String description, double price, double discount) {
         this.productId = product_id;
         this.categorieId = categorie_id;
         this.name = name;
         this.description = description;
         this.price = price;
+        this.discount = discount;
+        if(this.discount>0.d)
+            hasDiscount = true;
+        else
+            hasDiscount = false;
     }
 
     /**
@@ -89,7 +96,22 @@ public class Product {
     public void setCategorieId(int categorieId) {
         this.categorieId = categorieId;
     }
+    
+    public double getDiscount()
+    {
+        return this.discount;
+    }
+    
+    public void setDiscount(double discount)
+    {
+        this.discount = discount;
+    }
 
+    public boolean hasDiscount()
+    {
+        return this.hasDiscount;
+    }
+    
     @Override
     public String toString() {
         return name;

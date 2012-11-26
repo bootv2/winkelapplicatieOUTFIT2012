@@ -44,9 +44,23 @@ public class BasketDisplay extends JPanel implements ActionListener, Observer {
                     " - " + product.toString());
             lblProduct.setBounds(5, verticalPosition, 130, 20);
             lblProduct.setFont(WinkelApplication.FONT_10_PLAIN);
+            if(product.hasDiscount())
+            {
+                lblProduct.setForeground(Color.red);
+            }
             add(lblProduct);
 
-            JLabel lblPrice = new JLabel(WinkelApplication.CURRENCY + product.getPrice());
+            JLabel lblPrice;
+            
+            if(product.hasDiscount())
+            {
+                lblPrice = new JLabel(WinkelApplication.CURRENCY + (product.getPrice() - ((product.getDiscount()/100) * product.getPrice())));
+            }
+            else
+            {
+                lblPrice = new JLabel(WinkelApplication.CURRENCY + product.getPrice());
+            }
+            
             lblPrice.setBounds(140, verticalPosition, 150, 20);
             lblPrice.setFont(WinkelApplication.FONT_10_PLAIN);
             add(lblPrice);
