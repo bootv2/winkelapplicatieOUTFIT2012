@@ -72,11 +72,11 @@ public class ProductDetails extends JPanel implements MouseListener, ActionListe
         JLabel lblProductPrice = new JLabel();
         if(currentProduct.hasDiscount())
         {
-            lblProductPrice.setText("Price: " + WinkelApplication.CURRENCY + (currentProduct.getPrice() - ((currentProduct.getPrice()/100)*currentProduct.getDiscount())));
+            lblProductPrice.setText("Price: " + WinkelApplication.CURRENCY + WinkelApplication.currencyFormat.format(currentProduct.getPrice() - ((currentProduct.getPrice()/100)*currentProduct.getDiscount())));
         }
         else
         {
-            lblProductPrice.setText("Price: " + WinkelApplication.CURRENCY + currentProduct.getPrice());
+            lblProductPrice.setText("Price: " + WinkelApplication.CURRENCY + WinkelApplication.currencyFormat.format(currentProduct.getPrice()));
         }
         
         lblProductPrice.setBounds(20, 100, 500, 20);

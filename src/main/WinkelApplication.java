@@ -11,14 +11,19 @@ import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 import model.Client;
+import java.text.*;
+
 
 /**
  *
  * @author Administrator
  */
+
+
 public final class WinkelApplication {
 
     /** Define frame width, height and name*/
+    public static final DecimalFormat currencyFormat = new DecimalFormat("###.##");
     public static final int FRAME_WIDTH = 755;
     public static final int FRAME_HEIGHT = 480;
     public static final String NAME = "WinkelApplicatie";
@@ -72,7 +77,7 @@ public final class WinkelApplication {
         });
 
         mainWindow.getContentPane().setLayout(new BorderLayout());
-        showPanel(new view.CategoryList());
+        showPanel(new view.NewClientForm());
 
         mainWindow.setVisible(true);
     }
@@ -119,6 +124,11 @@ public final class WinkelApplication {
     public static model.Basket getBasket() {
         return getInstance().basket;
     }
+    
+    public void test(model.Client client)
+    {
+        queryManager.newClient(client);
+    }
 
     public static void main(String args[]) {
         final WinkelApplication applicatie = WinkelApplication.getInstance();
@@ -131,8 +141,10 @@ public final class WinkelApplication {
                     applicatie.startup();
                 } catch (Exception e) {
                     System.out.println("Application" + applicatie.getClass().getName() + "failed to launch");
+                    System.out.println(e.getMessage());
                 }
-            }
+                
+        }
         });
     }
 }

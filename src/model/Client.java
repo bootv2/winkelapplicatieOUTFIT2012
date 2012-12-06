@@ -23,6 +23,14 @@ public class Client {
         this.postcode = postcode;
         this.woonplaats = woonplaats;
     }
+    
+    public Client(String naam, String adres, String postcode, String woonplaats)
+    {
+        this.naam = naam;
+        this.adres = adres;
+        this.postcode = postcode;
+        this.woonplaats = woonplaats;
+    }
 
     public int getId() {
         return id;

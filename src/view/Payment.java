@@ -95,7 +95,17 @@ public class Payment extends JPanel implements MouseListener, ActionListener {
             lblAmount.setFont(WinkelApplication.FONT_10_PLAIN);
             add(lblAmount);
 
-            JLabel lblPrice = new JLabel(WinkelApplication.CURRENCY + product.getPrice());
+            JLabel lblPrice;
+            
+            if(product.hasDiscount())
+            {
+                 lblPrice = new JLabel(WinkelApplication.CURRENCY + WinkelApplication.currencyFormat.format(product.getPrice() - ((product.getDiscount() / 100) * product.getPrice())));
+            }
+            else
+            {
+                lblPrice = new JLabel(WinkelApplication.CURRENCY + WinkelApplication.currencyFormat.format(product.getPrice()));
+            }
+            
             lblPrice.setBounds(480, verticalPosition + i * productOffset, 70, 20);
             lblPrice.setFont(WinkelApplication.FONT_10_PLAIN);
             add(lblPrice);
@@ -109,7 +119,7 @@ public class Payment extends JPanel implements MouseListener, ActionListener {
 
         // create total labels
         
-        JLabel lblTotalPrice = new JLabel(WinkelApplication.CURRENCY + WinkelApplication.getBasket().getTotalCosts());
+        JLabel lblTotalPrice = new JLabel(WinkelApplication.CURRENCY + WinkelApplication.currencyFormat.format(WinkelApplication.getBasket().getTotalCosts()));
         lblTotalPrice.setBounds(480, verticalPosition + products.size() * productOffset, 70, 20);
         lblTotalPrice.setFont(WinkelApplication.FONT_10_BOLD);
         add(lblTotalPrice);
@@ -202,7 +212,7 @@ public class Payment extends JPanel implements MouseListener, ActionListener {
         String woonplaats = tfWoonplaats.getText();
         String betaalmethode = (String) cmbPayMethod.getSelectedItem();
         WinkelApplication.getQueryManager().setOrder(WinkelApplication.getBasket(),
-                naam, adres, postcode, woonplaats, opmerking, betaalmethode);
+                naam, adres, postcode, woonplaats, opmerking, betaalmethode, 0);
         WinkelApplication.getBasket().empty();
         WinkelApplication.getInstance().showPanel(new OrderSend());
     }

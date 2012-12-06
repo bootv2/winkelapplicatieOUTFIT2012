@@ -54,11 +54,11 @@ public class BasketDisplay extends JPanel implements ActionListener, Observer {
             
             if(product.hasDiscount())
             {
-                lblPrice = new JLabel(WinkelApplication.CURRENCY + (product.getPrice() - ((product.getDiscount()/100) * product.getPrice())));
+                lblPrice = new JLabel(WinkelApplication.CURRENCY + WinkelApplication.currencyFormat.format(product.getPrice() - ((product.getDiscount()/100) * product.getPrice())));
             }
             else
             {
-                lblPrice = new JLabel(WinkelApplication.CURRENCY + product.getPrice());
+                lblPrice = new JLabel(WinkelApplication.CURRENCY + WinkelApplication.currencyFormat.format(product.getPrice()));
             }
             
             lblPrice.setBounds(140, verticalPosition, 150, 20);
@@ -73,7 +73,7 @@ public class BasketDisplay extends JPanel implements ActionListener, Observer {
         lblTotal.setFont(WinkelApplication.FONT_10_BOLD);
         add(lblTotal);
 
-        JLabel lblTotalPrice = new JLabel(WinkelApplication.CURRENCY + basket.getTotalCosts());
+        JLabel lblTotalPrice = new JLabel(WinkelApplication.CURRENCY + WinkelApplication.currencyFormat.format(basket.getTotalCosts()));
         lblTotalPrice.setBounds(140, verticalPosition, 50, 20);
         lblTotalPrice.setFont(WinkelApplication.FONT_10_BOLD);
         add(lblTotalPrice);

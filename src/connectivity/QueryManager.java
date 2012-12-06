@@ -103,12 +103,18 @@ public class QueryManager {
         }
         return products;
     }
+    
+    public void newClient(model.Client client)
+    {
+        String SQL_client = "INSERT INTO `klant` (naam, adres, postcode, woonplaats) VALUES('" + client.getNaam() + "', '" + client.getAdres() + "', '" + client.getPostcode() + "', '" + client.getWoonplaats() +  "' )";
+        dbmanager.insertQuery(SQL_client);
+    }
 
     public void setOrder(model.Basket basket, String naam, String adres,
-            String postcode, String woonplaats, String opmerking, String betaalmethode) {
-        String SQL_order = "INSERT INTO `order` (naam, adres, postcode, woonplaats, opmerking, betaalmethode, datum)"
+            String postcode, String woonplaats, String opmerking, String betaalmethode, int status) {
+        String SQL_order = "INSERT INTO `order` (naam, adres, postcode, woonplaats, opmerking, betaalmethode, datum, orderstatus)"
                 + " VALUES('" + naam + "', '" + adres + "', '" + postcode + "', '"
-                + woonplaats + "', '" + opmerking + "', '" + betaalmethode + "', CURDATE() )";
+                + woonplaats + "', '" + opmerking + "', '" + betaalmethode + "', CURDATE(), '" + status + "' )";
         int order_id = 0;
         try {
             ResultSet result = dbmanager.insertQuery(SQL_order);
