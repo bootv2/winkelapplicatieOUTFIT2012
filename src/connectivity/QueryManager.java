@@ -84,6 +84,14 @@ public class QueryManager {
         }
         return temp;
     }
+     public void deleteClient(String klantNaam)
+    {
+
+            String sql = "DELETE FROM klant WHERE naam='" + klantNaam + "'";
+            ResultSet result = dbmanager.doQuery(sql);
+        
+
+    }
 
     public List<Product> getProducts(int categoryId) {
         List<Product> products = new ArrayList<Product>();

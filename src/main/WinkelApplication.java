@@ -77,7 +77,7 @@ public final class WinkelApplication {
         });
 
         mainWindow.getContentPane().setLayout(new BorderLayout());
-        showPanel(new view.NewClientForm());
+        showPanel(new view.MainMenu());
 
         mainWindow.setVisible(true);
     }
