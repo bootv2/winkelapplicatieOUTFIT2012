@@ -4,6 +4,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.Category;
 import model.Product;
 import model.Client;
@@ -88,9 +90,47 @@ public class QueryManager {
     {
 
             String sql = "DELETE FROM klant WHERE naam='" + klantNaam + "'";
-            ResultSet result = dbmanager.doQuery(sql);
+            ResultSet result = dbmanager.insertQuery(sql);
         
 
+    }
+    public void deleteClient(int ID)
+    {
+
+            String sql = "DELETE FROM klant WHERE id='" + ID + "'";
+            ResultSet result = dbmanager.insertQuery(sql);
+        
+
+    }
+    
+    public List<model.Client> searchClient(String terms)
+    {
+        List<model.Client> temp;
+        temp = new ArrayList<Client>();
+        try {
+            String sql = "SELECT * FROM klant WHERE naam LIKE '%" + terms + "%'";
+            ResultSet result = dbmanager.doQuery(sql);
+            for(int i=0; result.next(); i++)
+            {
+                   model.Client tempClient = new Client();
+                   tempClient.setNaam(result.getString("naam")); 
+                   tempClient.setAdres(result.getString("adres")); 
+                   tempClient.setPostcode(result.getString("postcode")); 
+                   tempClient.setWoonplaats(result.getString("woonplaats")); 
+                   tempClient.setId(result.getInt("id")); 
+                
+                
+                temp.add(tempClient);
+                System.out.println(sql + "\n" + temp.get(i).getNaam());
+            }
+            
+        } catch (SQLException ex) {
+            Logger.getLogger(QueryManager.class.getName()).log(Level.SEVERE, null, ex);
+            
+        }
+        return temp;
+        
+        
     }
 
     public List<Product> getProducts(int categoryId) {
