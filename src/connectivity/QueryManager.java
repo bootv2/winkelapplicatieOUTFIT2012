@@ -171,6 +171,29 @@ public class QueryManager {
         String SQL = "INSERT INTO `gebruikers` (gebruikersnaam, wachtwoord, id) VALUES('" + username + "', '" + password + "', '" + id + "' )";
         result = dbmanager.insertQuery(SQL);
     }
+    
+    public boolean clientLogin(String username, String password)
+    {
+        String sql = "SELECT id FROM gebruikers WHERE gebruikersnaam='" + username + "' AND wachtwoord='" + password + "'";
+        ResultSet result = dbmanager.doQuery(sql);
+        try {
+            if(result.next())
+            {
+                int id = result.getInt(1);
+                main.WinkelApplication.getInstance().activeId = id;
+                main.WinkelApplication.getInstance().elevationLevel = 0;
+                main.WinkelApplication.getInstance().activeClient = main.WinkelApplication.getQueryManager().getClient(id);
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QueryManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return false;
+    }
 
     public void setOrder(model.Basket basket, String naam, String adres,
             String postcode, String woonplaats, String opmerking, String betaalmethode, int status) {

@@ -32,7 +32,7 @@ public class MainMenu extends javax.swing.JPanel {
         jButton4 = new javax.swing.JButton();
 
         setPreferredSize(new java.awt.Dimension(755, 480));
-        setLayout(new java.awt.GridLayout());
+        setLayout(new java.awt.GridLayout(1, 0));
 
         jButton1.setText("KlantBeheer");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -53,7 +53,12 @@ public class MainMenu extends javax.swing.JPanel {
         jButton3.setText("Management");
         add(jButton3);
 
-        jButton4.setText("jButton4");
+        jButton4.setText("Inloggen klant");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         add(jButton4);
     }// </editor-fold>//GEN-END:initComponents
 
@@ -64,6 +69,10 @@ public class MainMenu extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         main.WinkelApplication.getInstance().showPanel(new CategoryList());
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        main.WinkelApplication.getInstance().showPanel(new view.ClientLogin());
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
