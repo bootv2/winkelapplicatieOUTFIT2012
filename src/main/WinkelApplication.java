@@ -31,6 +31,8 @@ public final class WinkelApplication {
     public int activeId;
     public int elevationLevel;
     public model.Client activeClient;
+    public boolean management;
+    public view.DiscountManagement manager;
     /** static fonts which are used within the application */
     public static final Font FONT_10_PLAIN = new Font("Verdana", Font.PLAIN, 10);
     public static final Font FONT_10_BOLD = new Font("Verdana", Font.BOLD, 10);
@@ -83,6 +85,7 @@ public final class WinkelApplication {
         showPanel(new view.MainMenu());
 
         mainWindow.setVisible(true);
+        manager = new view.DiscountManagement();
     }
 
     public void showPanel(JPanel panel) {

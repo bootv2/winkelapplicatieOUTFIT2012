@@ -1,5 +1,6 @@
 package connectivity;
 
+import java.awt.Component;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -47,6 +48,45 @@ public class QueryManager {
             System.out.println(Dbmanager.SQL_EXCEPTION + e.getMessage());
         }
         return categories;
+    }
+    
+    public List<model.Product> getCategoryProduce(String name)
+    {
+        int categoryID = 0;
+        String sql = "SELECT categorie_id FROM categorie WHERE naam='" + name + "'";
+        ResultSet result = dbmanager.doQuery(sql);
+        try {
+            while(result.next())
+            {
+                categoryID = result.getInt("categorie_id");
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(QueryManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        sql = "SELECT * FROM product WHERE categorie_id='" + categoryID + "'";
+        
+        ResultSet result2 = dbmanager.doQuery(sql);
+        List<model.Product> tempList = new ArrayList<model.Product>();
+        try
+        {
+            while(result2.next())
+            {
+                Product tempProd = new Product(result2.getInt("product_id"), result2.getInt("categorie_id"), result2.getString("naam"), result2.getString("omschrijving"), result2.getDouble("prijs"), result2.getDouble("korting"));
+                tempList.add(tempProd);
+            }
+        }
+        catch(SQLException e)
+        {
+            Logger.getLogger(QueryManager.class.getName()).log(Level.SEVERE, null, e);
+        }
+        return tempList;
+    }
+    
+    public void setDiscount(double discount, int id)
+    {
+        
+        String sql = "UPDATE product SET korting='" + discount + "' WHERE product_id='" + id + "'";
+        dbmanager.insertQuery(sql);
     }
 
     public Product getProduct(int productId) {

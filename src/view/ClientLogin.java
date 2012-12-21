@@ -115,6 +115,7 @@ public class ClientLogin extends javax.swing.JPanel {
         {
             model.Client loggedIn = main.WinkelApplication.getQueryManager().getClient(main.WinkelApplication.getInstance().activeId);
             jLabel2.setText("Welcome " + loggedIn.getNaam() + " from " + loggedIn.getWoonplaats());
+            jLabel2.setForeground(Color.black);
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed

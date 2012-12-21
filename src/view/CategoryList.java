@@ -74,10 +74,13 @@ public class CategoryList extends JPanel implements MouseListener {
 
     @Override
     public void mouseClicked(MouseEvent event) {
+        
         JLabel label = (JLabel) event.getSource();
         int categoryId = Integer.parseInt(label.getName());
         ProductList productList = new ProductList(categoryId);
+
         WinkelApplication.getInstance().showPanel(productList);
+        
     }
 
     @Override
