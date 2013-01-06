@@ -5,15 +5,17 @@ public class Category {
     private int categoryId;
     private String name;
     private String description;
+    private String image_path;
 
     public Category() {
-        this(-1, "", "");
+        this(-1, "", "", "");
     }
 
-    public Category(int category_id, String name, String description) {
+    public Category(int category_id, String name, String description, String image_path) {
         this.categoryId = category_id;
         this.name = name;
         this.description = description;
+        this.image_path = image_path;
     }
 
     /**
@@ -56,5 +58,9 @@ public class Category {
      */
     public void setDescription(String description) {
         this.description = description;
+    }
+    
+    public String getImagePath() {
+        return image_path;
     }
 }

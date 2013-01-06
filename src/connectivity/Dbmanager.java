@@ -7,6 +7,10 @@ import java.sql.*;
 public class Dbmanager {
     public static final String JDBC_EXCEPTION = "JDBC Exception: ";
     public static final String SQL_EXCEPTION = "SQL Exception: ";
+    public static String user = "root";
+    public static String password = "";
+    public static String host = "localhost";
+    public static String database = "outfit4you";
 
     public Connection connection;
 
@@ -18,10 +22,9 @@ public class Dbmanager {
             Class.forName("com.mysql.jdbc.Driver");
 
             String url = "jdbc:mysql://localhost/outfit4you";
-            String user = "root", pass = "";
 
             /** Open connection */
-            connection = DriverManager.getConnection(url, user, pass);
+            connection = DriverManager.getConnection(url, user, password);
         } catch (ClassNotFoundException e) {
             System.err.println(JDBC_EXCEPTION + e);
         } catch (java.sql.SQLException e) {

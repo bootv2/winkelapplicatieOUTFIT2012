@@ -3,9 +3,13 @@ package main;
 import connectivity.Dbmanager;
 import connectivity.QueryManager;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -13,39 +17,37 @@ import javax.swing.UIManager;
 import model.Client;
 import java.text.*;
 
-
 /**
  *
  * @author Administrator
  */
-
-
 public final class WinkelApplication {
 
     /** Define frame width, height and name*/
-    public static final DecimalFormat currencyFormat = new DecimalFormat("###.##");
-    public static final int FRAME_WIDTH = 755;
-    public static final int FRAME_HEIGHT = 480;
-    public static final String NAME = "WinkelApplicatie";
-    public static final String CURRENCY = "€";
-    public int activeId;
-    public int elevationLevel;
-    public model.Client activeClient;
-    public boolean management;
-    public view.DiscountManagement manager;
+    public static final int FRAME_WIDTH = 900;
+    public static final int FRAME_HEIGHT = 500;
+    public static final String NAME = "Outfit4You";
+    public static final String CURRENCY = "\u20AC";
     /** static fonts which are used within the application */
     public static final Font FONT_10_PLAIN = new Font("Verdana", Font.PLAIN, 10);
     public static final Font FONT_10_BOLD = new Font("Verdana", Font.BOLD, 10);
     public static final Font FONT_12_BOLD = new Font("Verdana", Font.BOLD, 12);
     public static final Font FONT_16_BOLD = new Font("Verdana", Font.BOLD, 16);
-    public static Client client;
     /** database manager */
     private Dbmanager dbManager;
     private QueryManager queryManager;
     /** models used in the application */
     private model.Basket basket;
+	public int activeId;
+    public int elevationLevel;
+    public model.Client activeClient;
+    public boolean management;
+    public view.DiscountManagement manager;
+    /** klant */
+    private model.Klant klant;
     /** the main window */
     private JFrame mainWindow;
+    public DecimalFormat currencyFormat = new DecimalFormat("###.##");
     /** singleton of the application */
     private static WinkelApplication instance = new WinkelApplication();
 
@@ -68,9 +70,10 @@ public final class WinkelApplication {
     }
 
     public void startup() {
+        klant = queryManager.getKlant(1);
+        
         mainWindow = new JFrame(NAME);
         mainWindow.setSize(FRAME_WIDTH, FRAME_HEIGHT);
-        client = queryManager.getClient(1);
 
         /** Make the window closing [x] button on the frame active */
         mainWindow.addWindowListener(new WindowAdapter() {
@@ -80,12 +83,26 @@ public final class WinkelApplication {
                 shutdown();
             }
         });
+        
+        BufferedImage bgimg = null;
+        
+        try {
+            File file = new File("src/assets/background.png");
+            bgimg = ImageIO.read(file);
+        }
+        catch (Exception e) {
+            System.out.println("Cannot read file: " + e.getMessage());
+        }
+        
+        model.BackgroundPanel bgpanel = new model.BackgroundPanel(bgimg, model.BackgroundPanel.SCALED);
 
+        mainWindow.setContentPane(bgpanel);
         mainWindow.getContentPane().setLayout(new BorderLayout());
-        showPanel(new view.MainMenu());
-
+        showPanel(new view.Login());
+        
+        mainWindow.setResizable(false);
+        mainWindow.setLocationRelativeTo(null);
         mainWindow.setVisible(true);
-        manager = new view.DiscountManagement();
     }
 
     public void showPanel(JPanel panel) {
@@ -103,6 +120,7 @@ public final class WinkelApplication {
     private void shutdown() {
         mainWindow.dispose();
         dbManager.closeConnection();
+        System.exit(0);
     }
 
     /**
@@ -111,11 +129,8 @@ public final class WinkelApplication {
     public static WinkelApplication getInstance() {
         return instance;
     }
-    
-    public static Client getKlant()
-    {
-        return getInstance().client;
-    }
+	
+
 
     /**
      * @return the queryManager
@@ -131,9 +146,20 @@ public final class WinkelApplication {
         return getInstance().basket;
     }
     
-    public void test(model.Client client)
-    {
-        queryManager.newClient(client);
+    public static model.Klant getKlant() {
+        return getInstance().klant;
+    }
+    
+    public static void setTitel(String titel) {
+        getInstance().mainWindow.setTitle(titel);
+    }
+    
+    public static void setSize(Dimension size) {
+        getInstance().mainWindow.setSize(size);
+    }
+    
+    public static void center() {
+        getInstance().mainWindow.setLocationRelativeTo(null);
     }
 
     public static void main(String args[]) {
@@ -147,10 +173,9 @@ public final class WinkelApplication {
                     applicatie.startup();
                 } catch (Exception e) {
                     System.out.println("Application" + applicatie.getClass().getName() + "failed to launch");
-                    System.out.println(e.getMessage());
+					System.out.println(e.getMessage());
                 }
-                
-        }
+            }
         });
     }
 }

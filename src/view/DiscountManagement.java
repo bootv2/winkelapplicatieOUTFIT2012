@@ -18,10 +18,11 @@ public class DiscountManagement extends javax.swing.JPanel {
     /**
      * Creates new form DiscountManagement
      */
-    public DiscountManagement() {
+    public DiscountManagement(model.Gebruiker temp) {
+        session = temp;
         initComponents();
     }
-
+    private model.Gebruiker session;
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -174,7 +175,7 @@ public class DiscountManagement extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        main.WinkelApplication.getInstance().showPanel(new view.Management());
+        main.WinkelApplication.getInstance().showPanel(new view.MainMenu1(session));
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
