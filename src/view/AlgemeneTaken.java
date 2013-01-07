@@ -53,6 +53,7 @@ public class AlgemeneTaken extends javax.swing.JPanel {
         llbl_bestellingen = new javax.swing.JLabel();
         lbl_description2 = new javax.swing.JLabel();
         lbl_bestellingicon = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(859, 118));
@@ -220,6 +221,14 @@ public class AlgemeneTaken extends javax.swing.JPanel {
         jPanel5.add(jPanel4);
 
         add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(3, 20, -1, -1));
+
+        jButton1.setText("Product Zoeken");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 0, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void llbl_catalogusMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_llbl_catalogusMouseEntered
@@ -265,7 +274,12 @@ public class AlgemeneTaken extends javax.swing.JPanel {
         WinkelApplication.getInstance().showPanel(new view.BekijkBestellingen(gebruiker));
     }//GEN-LAST:event_llbl_bestellingenMousePressed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        main.WinkelApplication.getInstance().showPanel(new view.OpzoekenProduct());
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

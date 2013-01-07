@@ -554,6 +554,32 @@ public class QueryManager {
             Logger.getLogger(QueryManager.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+     public List<Product> getVoorraad(){
+        List<Product> producten = new ArrayList<Product>();
+        
+          try {
+            String sql = "SELECT * FROM product";
+            ResultSet result = dbmanager.doQuery(sql);
+            while (result.next()) {
+                Product product = new Product();
+                product.setProductId(result.getInt("product_id"));
+                product.setAantal(result.getInt("aantal"));
+                product.setName(result.getString("naam"));
+                producten.add(product);
+            }
+        } catch (SQLException e) {
+            System.out.println(Dbmanager.SQL_EXCEPTION + e.getMessage());
+        }
+        return producten;
+    }
+       
+           public void changevoorraad(int id, int aantal){
+    String SQL_order = "UPDATE product SET aantal='" + aantal + "' WHERE product_id='" + id + "'";
+       dbmanager.insertQuery(SQL_order);
+    }
 
    
 }
+
+

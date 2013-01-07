@@ -136,13 +136,15 @@ public class Catalogus extends javax.swing.JPanel {
             panel_categories.add(lbl_image);
         }
     }
+    
+    
 
     public void addProductItems(int categoryid) {
         List<Product> products = WinkelApplication.getQueryManager().getProducts(categoryid);
         panel_products.removeAll();
 
         for (int i = 0; i < products.size(); i++) {
-            Product product = products.get(i);
+            final Product product = products.get(i);
 
             JLabel lblProduct = new JLabel(product.getName());
             lblProduct.setBounds(70, verticalPosition + i * offset, 340, 20);
@@ -187,6 +189,12 @@ public class Catalogus extends javax.swing.JPanel {
 
                 public void mouseExited(MouseEvent e) {
                     btnBestel.setIcon(new ImageIcon(cart));
+                    JLabel lbl_voorraad = new JLabel("Voorraad: " + String.valueOf(product.getVoorraad()));
+            lbl_voorraad.setName(String.valueOf(product.getProductId()));
+            lbl_voorraad.setBounds(300, verticalPosition + i * offset, 340, 20);
+            lbl_voorraad.setFont(WinkelApplication.FONT_10_PLAIN);
+            panel_products.add(lbl_voorraad);
+        
                 }
                 
                 public void mouseReleased(MouseEvent e) {
@@ -423,6 +431,8 @@ public class Catalogus extends javax.swing.JPanel {
     private void lbl_backMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbl_backMouseExited
         lbl_back.setText("Terug naar hoofdmenu");
         lbl_back.setForeground(lbl_color);
+        
+        
     }//GEN-LAST:event_lbl_backMouseExited
 
     private void llbl_winkelmandjeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_llbl_winkelmandjeMouseEntered
